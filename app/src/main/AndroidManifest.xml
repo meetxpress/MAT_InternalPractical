@@ -9,7 +9,22 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.InternalPractical">
-        <activity android:name=".MainActivity">
+        <activity
+            android:name=".Q1_Display"
+            android:label="Q1 Display"
+            android:parentActivityName=".Q1_Login" />
+        <activity
+            android:name=".Q1_Login"
+            android:label="Q1 Login"
+            android:parentActivityName=".MainActivity" />
+        <activity
+            android:name=".Q2"
+            android:label="Q2"
+            android:parentActivityName=".MainActivity" />
+        <activity android:name=".Q1" />
+        <activity
+            android:name=".MainActivity"
+            android:label="Dashboard">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
