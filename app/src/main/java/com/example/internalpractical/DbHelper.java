@@ -19,58 +19,60 @@ public class DbHelper extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        String query = "create table tblStudent (sno integer primary key autoincrement, sname text, sage integer, sadd text)";
+        String query = "create table tblEmployee (eid integer primary key autoincrement, ename text, eage integer, sal integer, edelp text)";
         db.execSQL(query);
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        db.execSQL("drop table if exists tblStudent");
+        db.execSQL("drop table if exists tblEmployee");
         onCreate(db);
     }
 
-    public boolean insert(String std_name, String std_age, String std_add) {
+    public boolean insert(String e_name, String e_age, String e_sal, String e_add) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues cv = new ContentValues();
-        cv.put("sname", std_name);
-        cv.put("sage", std_age);
-        cv.put("sadd", std_add);
-        long r = db.insert("tblStudent", "null", cv);
+        cv.put("ename", e_name);
+        cv.put("eage", e_age);
+        cv.put("sal", e_sal);
+        cv.put("edelp", e_add);
+        long r = db.insert("tblEmployee", "null", cv);
         return r == -1 ? false : true;
     }
 
-    public Cursor display(int stdno) {
+    public Cursor display(int empid) {
         SQLiteDatabase db = this.getWritableDatabase();
-        Cursor cr = db.rawQuery("select * from tblStudent where sno = " + stdno, null);
+        Cursor cr = db.rawQuery("select * from tblEmployee where eid = " + empid, null);
         return cr;
     }
 
     public Cursor displayAll() {
         SQLiteDatabase db = this.getWritableDatabase();
-        Cursor cr = db.rawQuery("select * from tblStudent", null);
+        Cursor cr = db.rawQuery("select * from tblEmployee", null);
         return cr;
     }
 
-    public boolean update(int ud_sno, String ud_sname, int ud_sage, String ud_add) {
+    public boolean update(int ud_eid, String ud_ename, int ud_eage, int ud_sal, String ud_add) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues cv = new ContentValues();
-        cv.put("sname", ud_sname);
-        cv.put("sage", ud_sage);
-        cv.put("sadd", ud_add);
-        Cursor cr = db.rawQuery("select * from tblStudent where sno = " + ud_sno, null);
+        cv.put("ename", ud_ename);
+        cv.put("eage", ud_eage);
+        cv.put("sal", ud_sal);
+        cv.put("edelp", ud_add);
+        Cursor cr = db.rawQuery("select * from tblEmployee where eid = " + ud_eid, null);
         if (cr.getCount() > 0) {
-            long r = db.update("tblStudent", cv, "sno=?", new String[]{String.valueOf(ud_sno)});
+            long r = db.update("tblEmployee", cv, "eid=?", new String[]{String.valueOf(ud_eid)});
             return r == -1 ? false : true;
         } else {
             return false;
         }
     }
 
-    public boolean delete(int ud_sno) {
+    public boolean delete(int ud_eid) {
         SQLiteDatabase db = this.getWritableDatabase();
-        Cursor cr = db.rawQuery("select * from tblStudent where sno = " + ud_sno, null);
+        Cursor cr = db.rawQuery("select * from tblEmployee where eid = " + ud_eid, null);
         if (cr.getCount() > 0) {
-            long r = db.delete("tblStudent", "sno = ?", new String[]{String.valueOf(ud_sno)});
+            long r = db.delete("tblEmployee", "eid = ?", new String[]{String.valueOf(ud_eid)});
             return r == -1 ? false : true;
         } else {
             return false;

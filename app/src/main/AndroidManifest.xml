@@ -20,16 +20,18 @@
         <activity
             android:name=".Q2"
             android:label="Q2"
-            android:parentActivityName=".MainActivity" />
-        <activity android:name=".Q1" />
-        <activity
-            android:name=".MainActivity"
-            android:label="Dashboard">
+            android:parentActivityName=".MainActivity" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+        <activity android:name=".Q1" />
+        <activity
+            android:name=".MainActivity"
+            android:label="Dashboard">
+
         </activity>
     </application>
 

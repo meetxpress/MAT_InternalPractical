@@ -17,7 +17,7 @@ import android.widget.Toast;
 import com.google.android.material.button.MaterialButtonToggleGroup;
 
 public class Q2 extends AppCompatActivity {
-    EditText q2Id, q2Name, q2Age, q2Address;
+    EditText q2Id, q2Name, q2Age, q2Sal, q2Dept;
     Button btnInsert, btnDisplay, btnUpdate, btnDelete;
     DbHelper dh;
     int flag = 0;
@@ -30,7 +30,9 @@ public class Q2 extends AppCompatActivity {
         q2Id = findViewById(R.id.q2Id);
         q2Name = findViewById(R.id.q2Name);
         q2Age = findViewById(R.id.q2Age);
-        q2Address = findViewById(R.id.q2Address);
+        q2Sal = findViewById(R.id.q2Sal);
+        q2Dept = findViewById(R.id.q2Dept);
+
         btnInsert = findViewById(R.id.btnInsert);
         btnDisplay = findViewById(R.id.btnDisplay);
         btnDelete = findViewById(R.id.btnDelete);
@@ -44,17 +46,18 @@ public class Q2 extends AppCompatActivity {
             public void onClick(View v) {
                 String sname = q2Name.getText().toString();
                 String sage = q2Age.getText().toString();
-                String sadd = q2Address.getText().toString();
+                String ssal = q2Sal.getText().toString();
+                String sdept = q2Dept.getText().toString();
 
-                if (sname == "" || sage == "" || sadd == "") {
+                if (sname == "" || sage == "" || ssal == "" || sdept == "") {
                     Toast.makeText(getApplicationContext(), "All fields are required.", Toast.LENGTH_SHORT).show();
                 } else {
-                    String i = dh.insert(sname, sage, sadd) == true ? "Inserted Successfully" : "Something went Wrong";
+                    String i = dh.insert(sname, sage, ssal, sdept) == true ? "Inserted Successfully" : "Something went Wrong";
                     Log.d("msg", i);
                     Toast.makeText(getApplicationContext(), i, Toast.LENGTH_LONG).show();
                     q2Name.setText("");
                     q2Age.setText("");
-                    q2Address.setText("");
+                    q2Dept.setText("");
                     Toast.makeText(getApplicationContext(), "Inserted", Toast.LENGTH_SHORT).show();
                 }
             }
@@ -101,24 +104,26 @@ public class Q2 extends AppCompatActivity {
                         Toast.makeText(getApplicationContext(), "No Record Found", Toast.LENGTH_SHORT).show();
                         q2Name.setText("");
                         q2Age.setText("");
-                        q2Address.setText("");
+                        q2Dept.setText("");
                     } else {
                         c.moveToNext();
                         q2Name.setText(c.getString(1));
                         q2Age.setText(c.getString(2));
-                        q2Address.setText(c.getString(3));
+                        q2Sal.setText(c.getString(3));
+                        q2Dept.setText(c.getString(4));
                         flag = 1;
                         btnUpdate.setText("Update Now");
                     }
                 } else {
                     String ud_q2Name = q2Name.getText().toString();
                     int ud_q2Aage = Integer.parseInt(q2Age.getText().toString());
-                    String ud_q2Add = q2Address.getText().toString();
+                    int ud_q2Sal = Integer.parseInt(q2Sal.getText().toString());
+                    String ud_q2dept= q2Dept.getText().toString();
 
-                    if (q2Id.getText().toString() == "" || ud_q2Name == "" || ud_q2Add == "") {
+                    if (q2Id.getText().toString() == "" || ud_q2Name == "" || ud_q2dept== "") {
                         Toast.makeText(getApplicationContext(), "All fields are required.", Toast.LENGTH_SHORT).show();
                     } else {
-                        boolean b = dh.update(ud_q2Id, ud_q2Name, ud_q2Aage, ud_q2Add);
+                        boolean b = dh.update(ud_q2Id, ud_q2Name, ud_q2Aage, ud_q2Sal, ud_q2dept);
                         if (b == true) {
                             flag = 0;
                             btnUpdate.setText("Fetch Data");
@@ -126,7 +131,7 @@ public class Q2 extends AppCompatActivity {
                             q2Id.setText("");
                             q2Name.setText("");
                             q2Age.setText("");
-                            q2Address.setText("");
+                            q2Dept.setText("");
                         }
                     }
                 }
@@ -145,7 +150,7 @@ public class Q2 extends AppCompatActivity {
                         q2Id.setText("");
                         q2Name.setText("");
                         q2Age.setText("");
-                        q2Address.setText("");
+                        q2Dept.setText("");
                         Toast.makeText(getApplicationContext(), "Deleted", Toast.LENGTH_SHORT).show();
                     } else {
                         Toast.makeText(getApplicationContext(), "Something went wrong", Toast.LENGTH_SHORT).show();
